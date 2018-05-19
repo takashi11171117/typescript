@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "types": [
+            "@types/stats"
+        ],
         "sourceMap": true,
         // TSはECMAScript 5に変換
         "target": "es5",

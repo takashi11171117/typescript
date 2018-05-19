@@ -12,7 +12,11 @@
   },
   "private": true,
   "dependencies": {
+    "@types/dat.gui": "^0.7.0",
+    "@types/stats": "^0.16.30",
     "@types/three": "^0.92.0",
+    "dat.gui": "^0.7.2",
+    "stats": "^1.0.0",
     "three": "^0.92.0"
   }
 }
