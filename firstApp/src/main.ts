@@ -1,5 +1,6 @@
 // three.js
 import * as THREE from 'three';
+import Stats from 'stats.js/src/Stats';
 import dat from 'dat.gui/build/dat.gui.js';
 
 class Level {
@@ -12,11 +13,22 @@ class Level {
     private plane: THREE.Mesh;
     private cube: THREE.Mesh;
     private sphere: THREE.Mesh;
+    private stats = new Stats();
     private step = 0;
     private controls = {
         rotationSpeed: 0.02,
         bouncingSpeed: 0.03
     };
+
+    initStats = () => {
+        const { stats } = this;
+        stats.setMode(0); // 0: fps, 1: ms
+        // Align top-left
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        document.getElementById("Stats-output").appendChild(stats.domElement);
+    }
 
     elementCreate = () => {
         // PlaneMesh
@@ -53,7 +65,9 @@ class Level {
     }
 
     renderScene = () => {
-        const { cube, controls, sphere, renderScene, scene, renderer, camera } = this;
+        const { cube, controls, sphere, renderScene, scene, renderer, camera, stats } = this;
+
+        stats.update();
         // rotate the cube around its axes
         cube.rotation.x += controls.rotationSpeed;
         cube.rotation.y += controls.rotationSpeed;
@@ -78,8 +92,11 @@ class Level {
             renderScene,
             spotLight,
             scene,
-            elementCreate
+            elementCreate,
+            initStats
         } = this;
+
+        initStats();
         
         const gui = new dat.gui.GUI;
         gui.add(controls, 'rotationSpeed', 0, 0.5);
